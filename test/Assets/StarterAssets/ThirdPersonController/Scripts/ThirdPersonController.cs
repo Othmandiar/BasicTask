@@ -84,7 +84,7 @@ namespace StarterAssets
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 
-		private Animator _animator;
+		public Animator _animator;
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
@@ -92,7 +92,7 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
         
 		private bool _hasAnimator,pressed=false;
-
+        public bool isMove = false;
         List<string> animDanceNames = new List<string> { "dance1", "dance2", "dance3" };
 		private void Awake()
 		{
@@ -132,8 +132,12 @@ namespace StarterAssets
                 pressed = false;
             JumpAndGravity();
 			GroundedCheck();
-            
-			Move();
+            float lastX = (int)(transform.position.x*10), lastY = (int)(transform.position.y *10), lastZ = (int)(transform.position.z*10);
+            Move();
+            if(lastX/10!=((int)transform.position.x*10)/10 || lastY / 10 != ((int)transform.position.y * 10)/ 10 || lastZ/ 10 != ((int)transform.position.z* 10)/ 10)
+            {
+                isMove = true;
+            }
 		}
 
         public void randomAnimation()
